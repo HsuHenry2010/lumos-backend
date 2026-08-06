@@ -8,48 +8,48 @@
 </head>
 <body class="bg-gray-100 text-gray-800 min-h-screen pb-16">
 
-<!-- 頂部導覽列：修正深色配色，並移除關主頁面連結 -->
+<!-- 頂部導覽列 -->
 <header class="bg-[#0f172a] text-white shadow-md sticky top-0 z-50">
     <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-        <span class="text-lg font-bold tracking-wider">總召全域控制台</span>
+        <span class="text-base sm:text-lg font-bold tracking-wider">總召全域控制台</span>
         <div class="flex items-center space-x-4 text-sm">
             <a th:href="@{/scoreboard}" class="text-gray-300 hover:text-white transition" target="_blank">公開記分板 ↗</a>
         </div>
     </div>
 </header>
 
-<main class="max-w-7xl mx-auto px-4 sm:px-6 py-8 space-y-8">
+<main class="max-w-7xl mx-auto px-3 sm:px-6 py-6 sm:py-8 space-y-6 sm:space-y-8">
 
     <!-- 1. 活動階段切換 -->
-    <section class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-        <h2 class="text-xl font-bold text-gray-900 mb-1">活動階段切換</h2>
+    <section class="bg-white rounded-2xl p-4 sm:p-6 shadow-sm border border-gray-100">
+        <h2 class="text-lg sm:text-xl font-bold text-gray-900 mb-1">活動階段切換</h2>
         <p class="text-gray-500 text-xs mb-4">切換後將會立即同步活動進行的階段</p>
 
-        <form id="phaseForm" class="flex items-center space-x-4">
+        <form id="phaseForm" class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:space-x-4">
             <select name="phase" id="phaseSelect" class="px-4 py-2 border border-gray-300 rounded-xl text-sm bg-white focus:ring-2 focus:ring-indigo-500">
                 <option value="1" th:selected="${currentPhase == 1}">第 1 階段</option>
                 <option value="2" th:selected="${currentPhase == 2}">第 2 階段</option>
                 <option value="3" th:selected="${currentPhase == 3}">第 3 階段</option>
                 <option value="4" th:selected="${currentPhase == 4}">第 4 階段</option>
             </select>
-            <button type="submit" id="phaseBtn" class="px-5 py-2 bg-amber-600 hover:bg-amber-700 text-white font-medium text-sm rounded-xl transition shadow-sm">
+            <button type="submit" id="phaseBtn" class="px-5 py-2.5 sm:py-2 bg-amber-600 hover:bg-amber-700 text-white font-medium text-sm rounded-xl transition shadow-sm text-center">
                 立即切換階段
             </button>
-            <span class="text-indigo-600 font-bold text-sm ml-2" id="currentPhaseText" th:text="'目前進行中：第 ' + ${currentPhase} + ' 階段'">
+            <span class="text-indigo-600 font-bold text-sm text-center sm:text-left" id="currentPhaseText" th:text="'目前進行中：第 ' + ${currentPhase} + ' 階段'">
                 目前進行中：第 1 階段
             </span>
         </form>
     </section>
 
     <!-- 2. 堡壘販賣物品與價格設定 -->
-    <section class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-        <h2 class="text-xl font-bold text-gray-900 mb-1">堡壘販賣物品與價格設定</h2>
+    <section class="bg-white rounded-2xl p-4 sm:p-6 shadow-sm border border-gray-100">
+        <h2 class="text-lg sm:text-xl font-bold text-gray-900 mb-1">堡壘販賣物品與價格設定</h2>
         <p class="text-gray-500 text-xs mb-6">設定每個堡壘固定販賣的物品與售價（各階段皆不變）</p>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div th:each="fortress : ${fortresses}" class="bg-gray-50 p-5 rounded-xl border border-gray-100 flex flex-col justify-between">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+            <div th:each="fortress : ${fortresses}" class="bg-gray-50 p-4 sm:p-5 rounded-xl border border-gray-100 flex flex-col justify-between">
                 <h3 class="font-bold text-gray-800 mb-3" th:text="'堡壘 ' + ${fortress.code}">堡壘 A</h3>
-                <form class="sell-price-form flex items-center space-x-2">
+                <form class="sell-price-form flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:space-x-2">
                     <input type="hidden" name="fortressId" th:value="${fortress.id}">
                     <select name="sellItemId" class="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm bg-white focus:ring-2 focus:ring-indigo-500">
                         <option value="-1">-- 無販賣 --</option>
@@ -57,8 +57,8 @@
                                 th:selected="${fortress.sellItem != null and fortress.sellItem.id == item.id}">物品</option>
                     </select>
                     <input type="number" name="sellPrice" placeholder="售價" th:value="${fortress.sellPrice}"
-                           class="w-24 px-3 py-2 border border-gray-300 rounded-lg text-sm bg-white focus:ring-2 focus:ring-indigo-500">
-                    <button type="submit" class="sell-btn px-4 py-2 bg-slate-800 hover:bg-slate-900 text-white text-xs font-semibold rounded-lg transition whitespace-nowrap">
+                           class="w-full sm:w-24 px-3 py-2 border border-gray-300 rounded-lg text-sm bg-white focus:ring-2 focus:ring-indigo-500">
+                    <button type="submit" class="sell-btn px-4 py-2.5 sm:py-2 bg-slate-800 hover:bg-slate-900 text-white text-xs font-semibold rounded-lg transition whitespace-nowrap text-center">
                         更新售價
                     </button>
                 </form>
@@ -67,13 +67,13 @@
     </section>
 
     <!-- 3. 堡壘收購價動態設定 -->
-    <section class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-        <h2 class="text-xl font-bold text-gray-900 mb-1">堡壘收購價動態設定</h2>
+    <section class="bg-white rounded-2xl p-4 sm:p-6 shadow-sm border border-gray-100">
+        <h2 class="text-lg sm:text-xl font-bold text-gray-900 mb-1">堡壘收購價動態設定</h2>
         <p class="text-gray-500 text-xs mb-6">設定四個堡壘在不同階段向玩家收購各種物品的價格（點擊「存」即可直接儲存，畫面不會跳動）</p>
 
-        <div class="space-y-8">
+        <div class="space-y-6 sm:space-y-8">
             <div th:each="fortress : ${fortresses}" class="border-t border-gray-100 pt-6 first:border-0 first:pt-0">
-                <h3 class="text-lg font-bold text-gray-800 mb-4" th:text="'堡壘 ' + ${fortress.code} + ' 收購價設定'">堡壘 A 收購價設定</h3>
+                <h3 class="text-base sm:text-lg font-bold text-gray-800 mb-4" th:text="'堡壘 ' + ${fortress.code} + ' 收購價設定'">堡壘 A 收購價設定</h3>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                     <div th:each="item : ${items}" class="bg-gray-50 p-4 rounded-xl border border-gray-100">
@@ -86,10 +86,10 @@
                                            th:id="'price-' + ${fortress.id} + '-' + ${item.id} + '-' + ${p}"
                                            th:value="${T(com.orientation.Lumos.model.FortressBuyPrice).findPrice(buyPrices, fortress.id, item.id, p)}"
                                            placeholder="價格"
-                                           class="w-16 px-2 py-1 border border-gray-300 rounded text-center bg-white focus:ring-1 focus:ring-indigo-500">
+                                           class="w-16 px-2 py-1.5 sm:py-1 border border-gray-300 rounded text-center bg-white focus:ring-1 focus:ring-indigo-500">
                                     <button type="button"
                                             th:onclick="'saveBuyPrice(' + ${fortress.id} + ',' + ${item.id} + ',' + ${p} + ', this)'"
-                                            class="px-2.5 py-1 bg-slate-800 hover:bg-slate-900 text-white font-medium rounded transition">
+                                            class="px-3 py-1.5 sm:py-1 bg-slate-800 hover:bg-slate-900 text-white font-medium rounded transition">
                                         存
                                     </button>
                                 </div>
@@ -104,7 +104,6 @@
 </main>
 
 <script>
-    // 1. 活動階段 AJAX 切換
     document.getElementById('phaseForm').addEventListener('submit', function(e) {
         e.preventDefault();
         const btn = document.getElementById('phaseBtn');
@@ -132,7 +131,6 @@
         });
     });
 
-    // 2. 堡壘售價 AJAX 更新
     document.querySelectorAll('.sell-price-form').forEach(form => {
         form.addEventListener('submit', function(e) {
             e.preventDefault();
@@ -157,7 +155,6 @@
         });
     });
 
-    // 3. 收購價 AJAX 儲存
     function saveBuyPrice(fortressId, itemId, phase, btnElement) {
         const inputId = `price-${fortressId}-${itemId}-${phase}`;
         const priceVal = document.getElementById(inputId).value;
@@ -178,7 +175,7 @@
         .then(data => {
             if (data === 'success') {
                 const originalBg = btnElement.className;
-                btnElement.className = 'px-2.5 py-1 bg-emerald-600 text-white font-medium rounded transition';
+                btnElement.className = 'px-3 py-1.5 sm:py-1 bg-emerald-600 text-white font-medium rounded transition';
                 btnElement.innerText = '✓';
                 setTimeout(() => {
                     btnElement.className = originalBg;

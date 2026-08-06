@@ -12,52 +12,50 @@
 <!-- 頂部導覽列 -->
 <header class="bg-[#0f172a] text-white shadow-md sticky top-0 z-50">
     <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-        <!-- 左側標題 -->
-        <span class="text-lg font-bold tracking-wider">關主管理後台</span>
+        <span class="text-base sm:text-lg font-bold tracking-wider">關主管理後台</span>
 
-        <!-- 右側頁籤導覽列（藍線精準對齊） -->
-        <nav class="flex items-center space-x-6 text-sm font-medium">
-            <a th:href="@{/staff-scoreboard}" class="text-gray-300 hover:text-white transition py-1">小隊分數</a>
+        <nav class="flex items-center space-x-3 sm:space-x-6 text-xs sm:text-sm font-medium overflow-x-auto py-2">
+            <a th:href="@{/staff-scoreboard}" class="text-gray-300 hover:text-white transition py-1 whitespace-nowrap">小隊分數</a>
 
-            <a th:href="@{/staff-fortress}" class="relative text-indigo-400 font-bold py-1 inline-flex flex-col items-center">
+            <a th:href="@{/staff-fortress}" class="relative text-indigo-400 font-bold py-1 inline-flex flex-col items-center whitespace-nowrap">
                 堡壘管理
                 <span class="absolute -bottom-1 w-full h-[2.5px] bg-indigo-500 rounded-full"></span>
             </a>
 
-            <a th:href="@{/staff-item}" class="text-gray-300 hover:text-white transition py-1">道具管理</a>
-            <a th:href="@{/scoreboard}" class="text-gray-300 hover:text-white transition py-1" target="_blank">公開記分板 ↗</a>
+            <a th:href="@{/staff-item}" class="text-gray-300 hover:text-white transition py-1 whitespace-nowrap">道具管理</a>
+            <a th:href="@{/scoreboard}" class="text-gray-300 hover:text-white transition py-1 whitespace-nowrap" target="_blank">公開記分板 ↗</a>
         </nav>
     </div>
 </header>
 
-<main class="max-w-7xl mx-auto px-4 sm:px-6 py-8 space-y-6">
+<main class="max-w-7xl mx-auto px-3 sm:px-6 py-6 sm:py-8 space-y-6">
 
     <div class="text-center space-y-2">
-        <h1 class="text-3xl font-extrabold text-slate-900">堡壘佔領與收購行情管理</h1>
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900">堡壘佔領與收購行情管理</h1>
         <p class="text-sm text-slate-500">
             資料與總召控制台即時連動，目前為
             <span id="currentPhaseBadge" class="text-indigo-600 font-black px-2 py-0.5 bg-indigo-50 rounded border border-indigo-200" th:text="'第 ' + ${currentPhase} + ' 階段'">第 1 階段</span>
         </p>
     </div>
 
-    <!-- 表格區塊 -->
+    <!-- 表格區塊 (支援手機左右滑動) -->
     <div class="bg-white rounded-2xl shadow-sm border border-slate-200/80 overflow-hidden">
         <div class="overflow-x-auto">
-            <table class="w-full text-left border-collapse text-sm">
+            <table class="w-full text-left border-collapse text-sm min-w-[700px]">
                 <thead>
                 <tr class="border-b border-slate-200 text-slate-400 font-bold bg-slate-50">
-                    <th class="py-4 px-6">堡壘代號</th>
-                    <th class="py-4 px-6">目前佔領小隊</th>
-                    <th class="py-4 px-6">販賣商品 (售價固定)</th>
-                    <th class="py-4 px-6">當前階段收購行情</th>
-                    <th class="py-4 px-6">變更佔領狀態</th>
+                    <th class="py-4 px-4 sm:px-6">堡壘代號</th>
+                    <th class="py-4 px-4 sm:px-6">目前佔領小隊</th>
+                    <th class="py-4 px-4 sm:px-6">販賣商品 (售價固定)</th>
+                    <th class="py-4 px-4 sm:px-6">當前階段收購行情</th>
+                    <th class="py-4 px-4 sm:px-6">變更佔領狀態</th>
                 </tr>
                 </thead>
                 <tbody class="divide-y divide-slate-100">
                 <tr th:each="fortress : ${fortresses}" th:id="'fortress-row-' + ${fortress.id}" class="hover:bg-slate-50/80 transition">
-                    <td class="py-4 px-6 font-extrabold text-slate-800 text-base" th:text="'堡壘 ' + ${fortress.code}">堡壘 A</td>
+                    <td class="py-4 px-4 sm:px-6 font-extrabold text-slate-800 text-base" th:text="'堡壘 ' + ${fortress.code}">堡壘 A</td>
 
-                    <td class="py-4 px-6 team-cell">
+                    <td class="py-4 px-4 sm:px-6 team-cell">
                             <span th:if="${fortress.occupyingTeam != null}"
                                   class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-800 border border-amber-300/60 shadow-sm"
                                   th:text="${fortress.occupyingTeam.name}">小隊</span>
@@ -65,7 +63,7 @@
                               class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-slate-100 text-slate-400">無人佔領</span>
                     </td>
 
-                    <td class="py-4 px-6 sell-cell">
+                    <td class="py-4 px-4 sm:px-6 sell-cell">
                             <span th:if="${fortress.sellItem != null and fortress.sellPrice != null}"
                                   class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200/80"
                                   th:text="${fortress.sellItem.name} + ' ($' + ${fortress.sellPrice} + ')'">商品</span>
@@ -73,7 +71,7 @@
                               class="text-slate-400 text-xs italic">無販賣商品</span>
                     </td>
 
-                    <td class="py-4 px-6 buy-prices-cell">
+                    <td class="py-4 px-4 sm:px-6 buy-prices-cell">
                         <div class="flex flex-wrap gap-2">
                             <th:block th:each="item : ${items}">
                                 <th:block th:with="price=${T(com.orientation.Lumos.model.FortressBuyPrice).findPrice(buyPrices, fortress.id, item.id, currentPhase)}">
@@ -90,15 +88,15 @@
                         </div>
                     </td>
 
-                    <td class="py-4 px-6">
+                    <td class="py-4 px-4 sm:px-6">
                         <form class="occupy-form flex items-center space-x-2">
                             <input type="hidden" name="fortressId" th:value="${fortress.id}">
-                            <select name="teamId" class="px-3 py-1.5 border border-slate-300 rounded-lg text-xs bg-white focus:ring-2 focus:ring-indigo-500 font-medium">
+                            <select name="teamId" class="px-3 py-2 sm:py-1.5 border border-slate-300 rounded-lg text-xs bg-white focus:ring-2 focus:ring-indigo-500 font-medium">
                                 <option value="-1">-- 解除佔領 --</option>
                                 <option th:each="t : ${teams}" th:value="${t.id}" th:text="${t.name}"
                                         th:selected="${fortress.occupyingTeam != null and fortress.occupyingTeam.id == t.id}">小隊</option>
                             </select>
-                            <button type="submit" class="occupy-btn px-4 py-1.5 bg-slate-800 hover:bg-slate-900 text-white text-xs font-bold rounded-lg transition whitespace-nowrap shadow-sm">
+                            <button type="submit" class="occupy-btn px-4 py-2 sm:py-1.5 bg-slate-800 hover:bg-slate-900 text-white text-xs font-bold rounded-lg transition whitespace-nowrap shadow-sm">
                                 更新
                             </button>
                         </form>
@@ -138,7 +136,7 @@
     });
 
     function fetchLatestData() {
-        if (document.hidden) return; // 背景分頁不發送請求，省伺服器效能
+        if (document.hidden) return;
 
         fetch('/staff-fortress/api/data')
             .then(response => response.json())
@@ -180,7 +178,6 @@
             .catch(err => console.error("自動同步失敗:", err));
     }
 
-    // 每 5 秒自動同步一次總召的階段與行情
     setInterval(fetchLatestData, 5000);
 </script>
 
