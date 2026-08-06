@@ -1,26 +1,86 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>首頁 - 數資聯合迎新 Lumos</title>
+    <!-- 引入 Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-50 text-gray-800 min-h-screen flex flex-col justify-between">
+<body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
 
-<div th:replace="~{fragments/common :: navbar}"></div>
+<!-- 頂部導覽列 -->
+<header th:replace="~{fragments/common :: navbar}"></header>
 
-<main class="max-w-4xl mx-auto px-4 py-8 pb-24 md:pb-12 w-full flex-grow flex items-center justify-center">
-    <div class="bg-white p-6 sm:p-12 rounded-2xl shadow-sm border border-gray-100 text-left sm:text-center w-full">
-        <h2 class="text-2xl font-bold text-gray-800 mb-4">歡迎來到三校數資聯合迎新</h2>
-        <p class="text-gray-600 leading-relaxed max-w-xl mx-auto text-sm sm:text-base">
-            這是為學弟妹們精心籌備的迎新活動網站。
+<!-- 主要內容區 -->
+<main class="flex-grow max-w-3xl mx-auto px-4 sm:px-6 py-12 sm:py-16 w-full">
+
+    <!-- 主視覺標題 -->
+    <div class="text-center mb-10">
+            <span class="inline-block bg-indigo-100 text-indigo-700 text-xs sm:text-sm px-4 py-1 rounded-full font-semibold mb-4 tracking-wider">
+                2026 實驗・竹中・竹女 數資聯合迎新
+            </span>
+        <h1 class="text-2xl sm:text-4xl font-extrabold tracking-tight text-gray-900 mb-4 leading-snug">
+            「實」「沂」之「嶺」：一起放肆 <span class="text-indigo-600">｜ 《Lumos》</span>
+        </h1>
+        <p class="text-gray-500 text-sm sm:text-base font-light">
+            點亮數資之光，開啟屬於我們的跨校冒險旅程
         </p>
     </div>
+
+    <!-- 活動核心資訊 (無框橫向排列) -->
+    <div class="flex flex-wrap justify-center gap-6 sm:gap-10 py-5 mb-8 border-y border-gray-200/60 text-sm sm:text-base text-gray-600 font-medium">
+        <div class="flex items-center space-x-2">
+            <span class="text-indigo-600 font-bold">時間</span>
+            <span>2026/09/12 (六)</span>
+        </div>
+        <div class="flex items-center space-x-2">
+            <span class="text-indigo-600 font-bold">地點</span>
+            <span>新竹高中</span>
+        </div>
+        <div class="flex items-center space-x-2">
+            <span class="text-indigo-600 font-bold">對象</span>
+            <span>實驗、竹中、竹女 數資高一新生</span>
+        </div>
+    </div>
+
+    <!-- 醒目的官方 IG 引導按鈕 -->
+    <div class="text-center mb-14">
+        <a href="https://www.instagram.com/lumos_nehchgmstc" target="_blank" class="inline-flex items-center justify-center px-8 py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white text-sm sm:text-base font-semibold rounded-full shadow-md hover:shadow-lg transition">
+            追蹤官方 Instagram 獲取最新動態：@lumos_nehchgmstc
+        </a>
+    </div>
+
+    <!-- 迎新理念與文字內容區 -->
+    <div class="space-y-6 text-gray-600 text-base sm:text-lg leading-relaxed">
+        <h2 class="text-xl sm:text-2xl font-bold text-gray-900 mb-6">
+            活動理念與致高一新生
+        </h2>
+
+        <p>
+            數理資優班，是一群懷抱好奇心、勇於探索未知的人所組成的群體。我們或許習慣透過數學尋找規律、透過科學理解世界，也在一次次思考與實踐中，不斷挑戰自己。然而，學習的價值從來不僅止於知識的累積，更在於與他人交流、合作，並在彼此的陪伴中共同成長。
+        </p>
+
+        <p>
+            因此，由三校數理資優班共同舉辦本次聯合迎新，希望提供一個跨校交流的平台，讓來自不同校園、擁有不同背景與想法的同學，因共同的興趣與熱情相聚，在互動中認識彼此，在合作中建立默契，在分享中激盪新的觀點。
+        </p>
+
+        <p>
+            這場迎新是一個新的起點。我們期待透過團隊合作、交流與挑戰，拉近彼此的距離，建立跨校的連結，讓原本陌生的名字，成為未來能彼此鼓勵、共同學習的夥伴。高中三年，或許我們會在競賽、科學營、研究計畫，甚至未來的大學與不同的人生階段再次相遇。而今天的相識，也許正是未來無數次合作與重逢的開始。
+        </p>
+
+        <p class="text-gray-700 italic pt-4">
+            願每一位參與者都能帶著好奇與期待而來，在歡笑與交流中收穫友誼，在合作與分享中留下回憶，也讓這份屬於三校數理資優班的連結，成為青春中一段值得珍藏的篇章。
+        </p>
+    </div>
+
 </main>
 
-<div th:replace="~{fragments/common :: mobile-nav}"></div>
-<div th:replace="~{fragments/common :: footer}"></div>
+<!-- 手機版底部導覽列 -->
+<nav th:replace="~{fragments/common :: mobile-nav}"></nav>
+
+<!-- 頁尾 -->
+<footer th:replace="~{fragments/common :: footer}"></footer>
 
 </body>
 </html>
