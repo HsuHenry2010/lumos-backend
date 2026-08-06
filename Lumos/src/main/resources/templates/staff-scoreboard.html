@@ -3,68 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>關主成績管理 - 數資聯合迎新 Lumos</title>
-    <!-- 引入 Tailwind CSS -->
+    <title>小隊分數管理 - 數資聯合迎新 Lumos</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
 
-<!-- 關主專用頂部導覽列 -->
+<!-- 頂部導覽列與分頁 -->
 <header class="bg-gray-900 text-white sticky top-0 z-50 shadow-md">
     <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-        <span class="text-base font-bold tracking-wider">關主管理介面</span>
+        <span class="text-base font-bold tracking-wider">關主管理後台</span>
         <nav class="flex items-center space-x-6 text-sm">
-            <a th:href="@{/scoreboard}" class="text-gray-300 hover:text-white transition" target="_blank">檢視公開記分板 ↗</a>
+            <a th:href="@{/staff/scoreboard}" class="text-indigo-400 font-bold border-b-2 border-indigo-400 pb-1">小隊分數</a>
+            <a th:href="@{/staff/fortress}" class="text-gray-300 hover:text-white transition">堡壘管理</a>
+            <a th:href="@{/staff/item}" class="text-gray-300 hover:text-white transition">道具管理</a>
+            <a th:href="@{/scoreboard}" class="text-gray-400 hover:text-white transition ml-4" target="_blank">公開記分板 ↗</a>
         </nav>
     </div>
 </header>
 
 <!-- 主要內容區 -->
 <main class="flex-grow max-w-4xl mx-auto px-4 sm:px-6 py-12 w-full">
-
-    <!-- 頁面標題 -->
-    <div class="text-center mb-10">
-        <h1 class="text-3xl font-extrabold text-gray-900 mb-2">關卡加扣分系統</h1>
-        <p class="text-gray-500 text-sm">輸入要增加或扣除的分數（扣分請加負號，例如：-50）</p>
+    <div class="text-center mb-8">
+        <h1 class="text-3xl font-extrabold text-gray-900 mb-2">小隊積分管理</h1>
+        <p class="text-gray-500 text-sm">在此即時調整各小隊的加扣分</p>
     </div>
 
-    <!-- 成績管理表格卡片 -->
     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
         <table class="w-full text-left border-collapse">
             <thead>
             <tr class="bg-gray-50 border-b border-gray-100 text-gray-600 text-sm">
                 <th class="py-4 px-6 font-semibold">小隊名稱</th>
                 <th class="py-4 px-6 font-semibold">目前積分</th>
-                <th class="py-4 px-6 font-semibold">調整分數</th>
+                <th class="py-4 px-6 font-semibold">加扣分操作</th>
             </tr>
             </thead>
             <tbody class="divide-y divide-gray-100 text-sm">
-
-            <!-- 動態讀取資料庫中的隊伍列表 -->
             <tr th:each="team : ${teams}">
                 <td class="py-4 px-6 font-medium text-gray-900" th:text="${team.name}">小隊名稱</td>
                 <td class="py-4 px-6 text-indigo-600 font-bold" th:text="${team.score} + ' 分'">0 分</td>
                 <td class="py-4 px-6">
                     <form th:action="@{/staff/update-score}" method="post" class="flex items-center space-x-2">
-                        <!-- 隱藏欄位：傳遞該隊伍的 ID -->
                         <input type="hidden" name="teamId" th:value="${team.id}">
-                        <!-- 輸入加減分數值 -->
-                        <input type="number" name="points" placeholder="例: 50 或 -20" class="w-32 px-3 py-1.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-600" required>
+                        <input type="number" name="points" placeholder="例: 50 或 -20" class="w-32 px-3 py-1.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-600" required>
                         <button type="submit" class="px-4 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg transition">送出</button>
                     </form>
                 </td>
             </tr>
-
             </tbody>
         </table>
     </div>
-
 </main>
 
-<!-- 頁尾 -->
 <footer class="bg-white border-t border-gray-200 py-6 text-center text-gray-400 text-xs">
     <p>&copy; 2026 Lumos 聯合迎新活動團隊</p>
 </footer>
-
 </body>
 </html>

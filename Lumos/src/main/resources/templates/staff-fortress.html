@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>堡壘佔領管理 - 數資聯合迎新 Lumos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
+
+<header class="bg-gray-900 text-white sticky top-0 z-50 shadow-md">
+    <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+        <span class="text-base font-bold tracking-wider">關主管理後台</span>
+        <nav class="flex items-center space-x-6 text-sm">
+            <a th:href="@{/staff/scoreboard}" class="text-gray-300 hover:text-white transition">小隊分數</a>
+            <a th:href="@{/staff/fortress}" class="text-indigo-400 font-bold border-b-2 border-indigo-400 pb-1">堡壘管理</a>
+            <a th:href="@{/staff/item}" class="text-gray-300 hover:text-white transition">道具管理</a>
+            <a th:href="@{/scoreboard}" class="text-gray-400 hover:text-white transition ml-4" target="_blank">公開記分板 ↗</a>
+        </nav>
+    </div>
+</header>
+
+<main class="flex-grow max-w-4xl mx-auto px-4 sm:px-6 py-12 w-full">
+    <div class="text-center mb-8">
+        <h1 class="text-3xl font-extrabold text-gray-900 mb-2">堡壘佔領狀態管理 (A / B / C / D)</h1>
+        <p class="text-gray-500 text-sm">設定各堡壘目前被哪一個小隊佔領</p>
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+        <table class="w-full text-left border-collapse">
+            <thead>
+            <tr class="bg-gray-50 border-b border-gray-100 text-gray-600 text-sm">
+                <th class="py-4 px-6 font-semibold">堡壘代號</th>
+                <th class="py-4 px-6 font-semibold">目前佔領小隊</th>
+                <th class="py-4 px-6 font-semibold">變更佔領狀態</th>
+            </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100 text-sm">
+            <tr th:each="fortress : ${fortresses}">
+                <td class="py-4 px-6 font-bold text-gray-900" th:text="'堡壘 ' + ${fortress.code}">堡壘 A</td>
+                <td class="py-4 px-6 text-indigo-600 font-medium" th:text="${fortress.team != null ? fortress.team.name : '無人佔領'}">無人佔領</td>
+                <td class="py-4 px-6">
+                    <form th:action="@{/staff/update-fortress}" method="post" class="flex items-center space-x-2">
+                        <input type="hidden" name="fortressId" th:value="${fortress.id}">
+                        <select name="teamId" class="px-3 py-1.5 border border-gray-300 rounded-lg text-sm bg-white focus:ring-2 focus:ring-indigo-600">
+                            <option value="-1">-- 解除佔領 --</option>
+                            <option th:each="t : ${teams}" th:value="${t.id}" th:text="${t.name}" th:selected="${fortress.team != null and fortress.team.id == t.id}">小隊</option>
+                        </select>
+                        <button type="submit" class="px-4 py-1.5 bg-gray-800 hover:bg-gray-900 text-white font-medium rounded-lg transition">更新堡壘</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+
+<footer class="bg-white border-t border-gray-200 py-6 text-center text-gray-400 text-xs">
+    <p>&copy; 2026 Lumos 聯合迎新活動團隊</p>
+</footer>
+</body>
+</html>
