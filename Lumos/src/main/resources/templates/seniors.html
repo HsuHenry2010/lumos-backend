@@ -1,26 +1,106 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>學長姐 - 數資聯合迎新 Lumos</title>
+    <title>學長姐介紹 - 數資聯合迎新 Lumos</title>
+    <!-- 引入 Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-50 text-gray-800 min-h-screen flex flex-col justify-between">
+<body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
 
-<div th:replace="~{fragments/common :: navbar}"></div>
+<!-- 頂部導覽列 (使用標準 ~{...} 片段語法) -->
+<header th:replace="~{fragments/common :: navbar}"></header>
 
-<main class="max-w-4xl mx-auto px-4 py-8 pb-24 md:pb-12 w-full flex-grow">
-    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-8 text-left">
-        <h2 class="text-xl sm:text-2xl font-bold text-gray-800 mb-6">學長姐資訊</h2>
-        <p class="text-gray-600 leading-relaxed text-sm sm:text-base">
-            這裡將放置各校帶隊學長姐的介紹與聯絡資訊。
+<!-- 主要內容區 -->
+<main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 w-full">
+    <!-- 頁面標題區 -->
+    <div class="text-center mb-10">
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-gray-900 tracking-tight">
+            學長姐團隊 <span class="text-indigo-600">Seniors</span>
+        </h1>
+        <p class="mt-3 text-sm sm:text-base text-gray-500 max-w-2xl mx-auto">
+            來自 NEHS、HCHS、HGSH 的工作人員與學長姐們，有任何問題隨時都能找我們喔！
         </p>
+    </div>
+
+    <!-- 學長姐列表 Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+
+        <!-- 卡片範例 1：NEHS 實中 -->
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition">
+            <div class="bg-indigo-600 h-2"></div>
+            <div class="p-6">
+                <div class="flex items-center space-x-4 mb-4">
+                    <div class="w-14 h-14 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center text-xl font-bold">
+                        實中
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-900">陳禾融</h3>
+                        <span class="inline-block bg-indigo-50 text-indigo-700 text-xs px-2.5 py-0.5 rounded-full font-medium">NEHS 總召</span>
+                    </div>
+                </div>
+                <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                   :))
+                </p>
+                <div class="text-xs text-gray-400 border-t border-gray-100 pt-3">
+                    IG: @andrew_981206
+                </div>
+            </div>
+        </div>
+
+        <!-- 卡片範例 2：HCHS 竹中 -->
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition">
+            <div class="bg-blue-600 h-2"></div>
+            <div class="p-6">
+                <div class="flex items-center space-x-4 mb-4">
+                    <div class="w-14 h-14 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xl font-bold">
+                        竹中
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-900">葉愷丞</h3>
+                        <span class="inline-block bg-blue-50 text-blue-700 text-xs px-2.5 py-0.5 rounded-full font-medium">HCHS 總召</span>
+                    </div>
+                </div>
+                <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                    :))
+                </p>
+                <div class="text-xs text-gray-400 border-t border-gray-100 pt-3">
+                    IG: @kelvin.y_4
+                </div>
+            </div>
+        </div>
+
+        <!-- 卡片範例 3：HGSH -->
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition">
+            <div class="bg-emerald-600 h-2"></div>
+            <div class="p-6">
+                <div class="flex items-center space-x-4 mb-4">
+                    <div class="w-14 h-14 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center text-xl font-bold">
+                        竹女
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-900">:))</h3>
+                        <span class="inline-block bg-emerald-50 text-emerald-700 text-xs px-2.5 py-0.5 rounded-full font-medium">HGSH 總召</span>
+                    </div>
+                </div>
+                <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                    :))
+                </p>
+                <div class="text-xs text-gray-400 border-t border-gray-100 pt-3">
+                    IG: :))
+                </div>
+            </div>
+        </div>
+
     </div>
 </main>
 
-<div th:replace="fragments/common :: mobile-nav"></div>
-<div th:replace="fragments/common :: footer"></div>
+<!-- 手機版底部導覽列 (使用標準 ~{...} 片段語法) -->
+<nav th:replace="~{fragments/common :: mobile-nav}"></nav>
+
+<!-- 頁尾 (使用標準 ~{...} 片段語法) -->
+<footer th:replace="~{fragments/common :: footer}"></footer>
 
 </body>
 </html>
