@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>記分板 - 數資聯合迎新 Lumos- NEHS X HCHS X HGHS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 min-h-screen flex flex-col justify-between">
+
+<!-- 頂部標題與導覽列 -->
+<header class="bg-indigo-600 text-white py-8 shadow-md">
+    <div class="max-w-5xl mx-auto px-4 text-center">
+        <h1 class="text-3xl sm:text-4xl font-extrabold tracking-wider mb-2">數資聯合迎新 Lumos</h1>
+        <p class="text-indigo-200 text-sm sm:text-base mb-6">NEHS X HCHS X HGHS</p>
+
+        <nav class="flex flex-wrap justify-center gap-2 sm:gap-3">
+            <a th:href="@{/}" class="bg-indigo-700 hover:bg-indigo-800 text-white px-4 py-2 rounded-lg text-sm font-medium transition shadow-sm">首頁</a>
+            <a th:href="@{/activities}" class="bg-indigo-700 hover:bg-indigo-800 text-white px-4 py-2 rounded-lg text-sm font-medium transition shadow-sm">活動介紹</a>
+            <a th:href="@{/map}" class="bg-indigo-700 hover:bg-indigo-800 text-white px-4 py-2 rounded-lg text-sm font-medium transition shadow-sm">校園地圖</a>
+            <a th:href="@{/seniors}" class="bg-indigo-700 hover:bg-indigo-800 text-white px-4 py-2 rounded-lg text-sm font-medium transition shadow-sm">學長姐</a>
+            <a th:href="@{/scoreboard}" class="bg-indigo-800 text-white px-4 py-2 rounded-lg text-sm font-medium transition shadow-sm ring-2 ring-white">記分板</a>
+            <a th:href="@{/games}" class="bg-indigo-700 hover:bg-indigo-800 text-white px-4 py-2 rounded-lg text-sm font-medium transition shadow-sm">大地遊戲</a>
+        </nav>
+    </div>
+</header>
+
+<!-- 主要內容區：記分板 -->
+<main class="max-w-4xl mx-auto px-4 py-12 w-full flex-grow">
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+        <div class="p-6 sm:p-8 border-b border-gray-100 bg-gray-50 flex justify-between items-center">
+            <h2 class="text-2xl font-bold text-gray-800">即時小隊記分板</h2>
+            <span class="text-xs bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full font-medium">分數隨時更新中</span>
+        </div>
+
+        <!-- 表格區 -->
+        <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+                <thead>
+                <tr class="border-b border-gray-200 text-gray-400 text-xs uppercase tracking-wider bg-gray-50/50">
+                    <th class="py-4 px-6 font-semibold">排名</th>
+                    <th class="py-4 px-6 font-semibold">小隊名稱</th>
+                    <th class="py-4 px-6 font-semibold text-right">目前積分</th>
+                </tr>
+                </thead>
+                <!-- 這裡的內容會由下方的 JavaScript 自動填入並依分數排序 -->
+                <tbody id="scoreboard-body" class="divide-y divide-gray-100 text-sm">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+
+<!-- 頁尾 -->
+<footer class="bg-white border-t border-gray-200 py-6 text-center text-gray-400 text-sm">
+    <p>&copy; 2026 Lumos 聯合迎新活動團隊</p>
+</footer>
+
+<!-- 方便隨時更改分數的 JavaScript 設定區 -->
+<script>
+    // 【活動期間更改分數教學】：
+    // 你只需要在這裡修改每個小隊的 score 數字，重新整理網頁後，名次就會自動重新排序！
+    let teams = [
+        { name: "第一小隊", score: 1200 },
+        { name: "第二小隊", score: 850 },
+        { name: "第三小隊", score: 980 },
+        { name: "第四小隊", score: 790 },
+        { name: "第五小隊", score: 1120 }
+    ];
+
+    function renderScoreboard() {
+        // 依照分數由高到低排序
+        teams.sort((a, b) => b.score - a.score);
+
+        const tbody = document.getElementById('scoreboard-body');
+        tbody.innerHTML = '';
+
+        teams.forEach((team, index) => {
+            const rank = index + 1;
+            let rankStyle = "text-gray-500 font-medium";
+            if (rank === 1) rankStyle = "text-amber-500 font-bold text-base";
+            if (rank === 2) rankStyle = "text-gray-400 font-bold";
+            if (rank === 3) rankStyle = "text-amber-700 font-bold";
+
+            const row = `
+                <tr class="hover:bg-gray-50/80 transition">
+                    <td class="py-4 px-6 ${rankStyle}">${rank}</td>
+                    <td class="py-4 px-6 font-medium text-gray-900">${team.name}</td>
+                    <td class="py-4 px-6 font-bold text-indigo-600 text-right">${team.score.toLocaleString()} 分</td>
+                </tr>
+            `;
+            tbody.innerHTML += row;
+        });
+    }
+
+    // 網頁載入時執行渲染
+    renderScoreboard();
+</script>
+
+</body>
+</html>

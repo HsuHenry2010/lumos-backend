@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>校園地圖 - Lumos 迎新</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 min-h-screen flex flex-col justify-between">
+
+<!-- 頂部導覽 -->
+<header class="bg-indigo-600 text-white py-4 px-6 shadow-md flex justify-between items-center">
+    <h1 class="text-2xl font-bold">🗺️ 校園導覽地圖</h1>
+    <a th:href="@{/}" class="bg-indigo-700 hover:bg-indigo-800 px-4 py-2 rounded-lg text-sm transition">返回首頁</a>
+</header>
+
+<!-- 主要內容區 -->
+<main class="max-w-5xl mx-auto px-4 py-8 w-full flex-grow grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+
+    <!-- 左側：地圖圖片與互動標點 (佔 2 欄) -->
+    <div class="md:col-span-2 bg-white p-4 rounded-2xl shadow-sm border border-gray-100">
+        <p class="text-sm text-gray-500 mb-3 text-center">👇 點擊地圖上的標記查看地點介紹</p>
+
+        <!-- 地圖容器 (相對定位，用來定位上面的按鈕) -->
+        <div class="relative w-full rounded-xl overflow-hidden shadow-inner bg-gray-200">
+            <!-- 替換成你的校園地圖圖片網址，或放在 static 資料夾下的圖片路徑 -->
+            <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=800&q=80"
+                 alt="校園地圖" class="w-full h-auto object-cover opacity-90">
+
+            <!-- 地標 1：教學大樓 (調整 top 和 left 百分比來決定按鈕位置) -->
+            <button onclick="showLocation('buildingA')"
+                    class="absolute top-1/3 left-1/4 bg-red-500 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold shadow-lg hover:scale-125 transition animate-pulse">
+                📍
+            </button>
+
+            <!-- 地標 2：體育館 -->
+            <button onclick="showLocation('buildingB')"
+                    class="absolute top-1/2 left-2/3 bg-blue-500 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold shadow-lg hover:scale-125 transition">
+                📍
+            </button>
+
+            <!-- 地標 3：圖書館 -->
+            <button onclick="showLocation('library')"
+                    class="absolute top-1/5 left-3/5 bg-green-500 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold shadow-lg hover:scale-125 transition">
+                📍
+            </button>
+        </div>
+    </div>
+
+    <!-- 右側：動態地點詳細資料卡片 (佔 1 欄) -->
+    <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+        <h2 class="text-xl font-bold text-indigo-600 mb-4 border-b pb-2">📍 地點詳細資訊</h2>
+
+        <div id="info-card">
+            <h3 id="loc-title" class="text-lg font-semibold text-gray-800 mb-2">請點擊左側地圖標記</h3>
+            <p id="loc-desc" class="text-gray-600 text-sm leading-relaxed mb-4">
+                點擊地圖上的紅藍綠標定點後，這裡會顯示該地點的詳細介紹、闖關關卡位置或是學長姊的貼心提醒！
+            </p>
+            <div class="bg-indigo-50 p-3 rounded-xl text-indigo-700 text-xs">
+                💡 提示：迎新當天所有小隊請先至「教學大樓」集合點名喔！
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<!-- 頁尾 -->
+<footer class="bg-white border-t border-gray-200 py-4 text-center text-gray-400 text-sm">
+    <p>&copy; 2026 Lumos 迎新活動團隊</p>
+</footer>
+
+<!-- 簡單的 JavaScript 切換地點資訊 -->
+<script>
+    const locations = {
+        buildingA: {
+            title: "🏫 第一教學大樓 (高一主戰場)",
+            desc: "這裡是你們未來一年的教室所在地！迎新當天的報到處與神祕闖關關卡也設在這裡，千萬不要迷路囉。"
+        },
+        buildingB: {
+            title: "🏀 體育館與活動中心",
+            desc: "全校室內大型活動、迎新開幕典禮與趣味競賽的場地。冷氣非常強，是夏天避暑勝地。"
+        },
+        library: {
+            title: "📚 圖書館暨自修室",
+            desc: "期中考抱佛腳、午休找書吹冷氣的最佳去處。環境安靜，館藏豐富，學長姊強力推薦。"
+        }
+    };
+
+    function showLocation(key) {
+        const loc = locations[key];
+        if (loc) {
+            document.getElementById('loc-title').innerText = loc.title;
+            document.getElementById('loc-desc').innerText = loc.desc;
+        }
+    }
+</script>
+
+</body>
+</html>
