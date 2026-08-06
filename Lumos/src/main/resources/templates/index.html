@@ -3,26 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> 數資聯合迎新 Lumos- NEHS X HCHS X HGHS</title>
+    <title>數資聯合迎新 Lumos- NEHS X HCHS X HGHS</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-50 text-gray-800 min-h-screen flex flex-col justify-between">
 
-<!-- 頂部標題與縮小版導覽列 -->
-<header class="bg-indigo-600 text-white py-8 shadow-md">
-    <div class="max-w-5xl mx-auto px-4 text-center">
-        <h1 class="text-3xl sm:text-4xl font-extrabold tracking-wider mb-2">數資聯合迎新 Lumos</h1>
-        <p class="text-indigo-200 text-sm sm:text-base mb-6">NEHS X HCHS X HGHS </p>
+<!-- 質感簡約頂部導覽列 -->
+<header class="bg-gray-900 text-white sticky top-0 z-50 shadow-md">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+        <!-- 左側品牌標題 -->
+        <div class="flex flex-col">
+            <span class="text-base sm:text-lg font-bold tracking-wider">數資聯合迎新 Lumos</span>
+            <span class="text-xs text-gray-400">NEHS X HCHS X HGHS</span>
+        </div>
 
-        <!-- 將原本的大按鈕縮小並整合到上方區域變成導覽列 -->
-        <nav class="flex flex-wrap justify-center gap-2 sm:gap-3">
-            <a th:href="@{/}" class="bg-indigo-700 hover:bg-indigo-800 text-white px-4 py-2 rounded-lg text-sm font-medium transition shadow-sm">首頁</a>
-            <a th:href="@{/activities}" class="bg-indigo-700 hover:bg-indigo-800 text-white px-4 py-2 rounded-lg text-sm font-medium transition shadow-sm">活動介紹</a>
-            <a th:href="@{/map}" class="bg-indigo-700 hover:bg-indigo-800 text-white px-4 py-2 rounded-lg text-sm font-medium transition shadow-sm">校園地圖</a>
-            <a th:href="@{/seniors}" class="bg-indigo-700 hover:bg-indigo-800 text-white px-4 py-2 rounded-lg text-sm font-medium transition shadow-sm">學長姐</a>
-            <a th:href="@{/scoreboard}" class="bg-indigo-700 hover:bg-indigo-800 text-white px-4 py-2 rounded-lg text-sm font-medium transition shadow-sm">記分板</a>
-            <a th:href="@{/games}" class="bg-indigo-700 hover:bg-indigo-800 text-white px-4 py-2 rounded-lg text-sm font-medium transition shadow-sm">大地遊戲</a>
+        <!-- 右側橫向簡約文字連結 (首頁加上底線標示目前頁面) -->
+        <nav class="hidden md:flex items-center space-x-8 text-sm font-medium">
+            <a th:href="@{/}" class="text-white font-semibold transition border-b-2 border-indigo-400 pb-1">首頁</a>
+            <a th:href="@{/activities}" class="text-gray-300 hover:text-white transition">活動介紹</a>
+            <a th:href="@{/map}" class="text-gray-300 hover:text-white transition">校園地圖</a>
+            <a th:href="@{/seniors}" class="text-gray-300 hover:text-white transition">學長姐</a>
+            <a th:href="@{/scoreboard}" class="text-gray-300 hover:text-white transition">記分板</a>
+            <a th:href="@{/games}" class="text-gray-300 hover:text-white transition">大地遊戲</a>
         </nav>
+    </div>
+
+    <!-- 手機版導覽列 -->
+    <div class="md:hidden bg-gray-950 px-4 py-3 flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs border-t border-gray-800">
+        <a th:href="@{/}" class="text-white font-bold underline">首頁</a>
+        <a th:href="@{/activities}" class="text-gray-300 hover:text-white">活動介紹</a>
+        <a th:href="@{/map}" class="text-gray-300 hover:text-white">校園地圖</a>
+        <a th:href="@{/seniors}" class="text-gray-300 hover:text-white">學長姐</a>
+        <a th:href="@{/scoreboard}" class="text-gray-300 hover:text-white">記分板</a>
+        <a th:href="@{/games}" class="text-gray-300 hover:text-white">大地遊戲</a>
     </div>
 </header>
 
