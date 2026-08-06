@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>關主堡壘管理 - Lumos</title>
     <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- 引入 instant.page：當使用者滑鼠移到導覽列連結上時，自動在背景預載該頁面，點擊時實現 0 延遲秒切 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/instant.page/5.2.0/instantpage.js" type="module" crossorigin="anonymous"></script>
 </head>
 <body class="bg-slate-50 text-slate-800 min-h-screen pb-16">
@@ -19,7 +17,6 @@
 
         <!-- 右側頁籤導覽列（藍線精準對齊） -->
         <nav class="flex items-center space-x-6 text-sm font-medium">
-            <!-- 加上 data-no-instant 或保持預設，讓 instant.page 進行加速 -->
             <a th:href="@{/staff-scoreboard}" class="text-gray-300 hover:text-white transition py-1">小隊分數</a>
 
             <a th:href="@{/staff-fortress}" class="relative text-indigo-400 font-bold py-1 inline-flex flex-col items-center">
@@ -147,12 +144,43 @@
             .then(response => response.json())
             .then(data => {
                 document.getElementById('currentPhaseBadge').innerText = '第 ' + data.currentPhase + ' 階段';
-                // 同步更新畫面邏輯...
+
+                data.fortresses.forEach(f => {
+                    const row = document.getElementById('fortress-row-' + f.id);
+                    if (!row) return;
+
+                    const teamCell = row.querySelector('.team-cell');
+                    if (f.occupyingTeam !== "無人佔領") {
+                        teamCell.innerHTML = `<span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-800 border border-amber-300/60 shadow-sm">${f.occupyingTeam}</span>`;
+                    } else {
+                        teamCell.innerHTML = `<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-slate-100 text-slate-400">無人佔領</span>`;
+                    }
+
+                    const sellCell = row.querySelector('.sell-cell');
+                    if (f.sellInfo !== "無販賣商品") {
+                        sellCell.innerHTML = `<span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200/80">${f.sellInfo}</span>`;
+                    } else {
+                        sellCell.innerHTML = `<span class="text-slate-400 text-xs italic">無販賣商品</span>`;
+                    }
+
+                    const buyPricesCell = row.querySelector('.buy-prices-cell .flex');
+                    if (buyPricesCell && f.buyPrices) {
+                        let pricesHtml = '';
+                        f.buyPrices.forEach(bp => {
+                            if (bp.price !== "未定") {
+                                pricesHtml += `<span class="inline-flex items-center px-3 py-1 rounded-lg text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-200/80 shadow-sm">${bp.itemName}：$${bp.price}</span>`;
+                            } else {
+                                pricesHtml += `<span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-normal bg-slate-50 text-slate-400 border border-slate-100 opacity-60">${bp.itemName}：未定</span>`;
+                            }
+                        });
+                        buyPricesCell.innerHTML = pricesHtml;
+                    }
+                });
             })
             .catch(err => console.error("自動同步失敗:", err));
     }
 
-    // 輪詢時間拉長至 5 秒，確保多人同時使用時伺服器不會過載卡頓
+    // 每 5 秒自動同步一次總召的階段與行情
     setInterval(fetchLatestData, 5000);
 </script>
 

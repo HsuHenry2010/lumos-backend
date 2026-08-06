@@ -45,8 +45,32 @@ public class CommanderController {
         return "success";
     }
 
-    // 更新收購行情（加入 required = false 防止空字串崩潰）
-    @PostMapping("/api/update-buy-price")
+    // 更新堡壘固定販賣商品與售價
+    @PostMapping("/commander/update-sell-price")
+    @ResponseBody
+    public String updateSellPrice(@RequestParam Long fortressId,
+                                  @RequestParam Long sellItemId,
+                                  @RequestParam(required = false) Integer sellPrice) {
+        Fortress fortress = fortressRepository.findById(fortressId).orElse(null);
+        if (fortress == null) {
+            return "找不到該堡壘";
+        }
+
+        if (sellItemId == null || sellItemId == -1) {
+            fortress.setSellItem(null);
+            fortress.setSellPrice(null);
+        } else {
+            Item item = itemRepository.findById(sellItemId).orElse(null);
+            fortress.setSellItem(item);
+            fortress.setSellPrice(sellPrice);
+        }
+
+        fortressRepository.save(fortress);
+        return "success";
+    }
+
+    // ⭐ 修正這裡：加上 /commander 前綴，讓前端抓得到網址
+    @PostMapping("/commander/api/update-buy-price")
     @ResponseBody
     public String updateBuyPrice(@RequestParam Long fortressId,
                                  @RequestParam Long itemId,
