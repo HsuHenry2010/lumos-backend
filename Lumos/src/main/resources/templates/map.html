@@ -3,56 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>校園地圖 - 數資聯合迎新 Lumos- NEHS X HCHS X HGHS</title>
+    <title>校園地圖 - 數資聯合迎新 Lumos</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-50 text-gray-800 min-h-screen flex flex-col justify-between">
 
-<!-- 質感簡約頂部導覽列 -->
-<header class="bg-gray-900 text-white sticky top-0 z-50 shadow-md">
-    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-        <!-- 左側品牌標題 -->
-        <div class="flex flex-col">
-            <span class="text-base sm:text-lg font-bold tracking-wider">數資聯合迎新 Lumos</span>
-            <span class="text-xs text-gray-400">NEHS X HCHS X HGHS</span>
-        </div>
+<div th:replace="fragments/common :: navbar"></div>
 
-        <!-- 右側橫向簡約文字連結 (校園地圖加上底線標示目前頁面) -->
-        <nav class="hidden md:flex items-center space-x-8 text-sm font-medium">
-            <a th:href="@{/}" class="text-gray-300 hover:text-white transition">首頁</a>
-            <a th:href="@{/activities}" class="text-gray-300 hover:text-white transition">活動介紹</a>
-            <a th:href="@{/map}" class="text-white font-semibold transition border-b-2 border-indigo-400 pb-1">校園地圖</a>
-            <a th:href="@{/seniors}" class="text-gray-300 hover:text-white transition">學長姐</a>
-            <a th:href="@{/scoreboard}" class="text-gray-300 hover:text-white transition">記分板</a>
-            <a th:href="@{/games}" class="text-gray-300 hover:text-white transition">大地遊戲</a>
-        </nav>
-    </div>
-
-    <!-- 手機版導覽列 -->
-    <div class="md:hidden bg-gray-950 px-4 py-3 flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs border-t border-gray-800">
-        <a th:href="@{/}" class="text-gray-300 hover:text-white">首頁</a>
-        <a th:href="@{/activities}" class="text-gray-300 hover:text-white">活動介紹</a>
-        <a th:href="@{/map}" class="text-white font-bold underline">校園地圖</a>
-        <a th:href="@{/seniors}" class="text-gray-300 hover:text-white">學長姐</a>
-        <a th:href="@{/scoreboard}" class="text-gray-300 hover:text-white">記分板</a>
-        <a th:href="@{/games}" class="text-gray-300 hover:text-white">大地遊戲</a>
-    </div>
-</header>
-
-<!-- 主要內容區：校園導覽地圖 (已移除表情符號) -->
-<main class="max-w-4xl mx-auto px-4 py-12 w-full flex-grow">
-    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-8">
-        <h2 class="text-2xl font-bold text-gray-800 mb-6">校園導覽地圖</h2>
-        <p class="text-gray-600 leading-relaxed">
+<main class="max-w-4xl mx-auto px-4 py-8 pb-24 md:pb-12 w-full flex-grow">
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-8 text-left">
+        <h2 class="text-xl sm:text-2xl font-bold text-gray-800 mb-6">校園導覽地圖</h2>
+        <p class="text-gray-600 leading-relaxed text-sm sm:text-base">
             這裡將放置迎新活動的校園導覽地圖與相關路線說明。
         </p>
     </div>
 </main>
 
-<!-- 頁尾 -->
-<footer class="bg-white border-t border-gray-200 py-6 text-center text-gray-400 text-sm">
-    <p>&copy; 2026 Lumos 聯合迎新活動團隊</p>
-</footer>
+<div th:replace="fragments/common :: mobile-nav"></div>
+<div th:replace="fragments/common :: footer"></div>
 
 </body>
 </html>

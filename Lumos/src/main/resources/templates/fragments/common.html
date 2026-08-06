@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<!-- 頂部導覽列 (電腦版顯示) -->
+<header th:fragment="navbar" class="bg-gray-900 text-white sticky top-0 z-50 shadow-md">
+    <div class="max-w-7xl mx-auto px-4 h-14 sm:h-16 flex items-center justify-between">
+        <div class="flex flex-col text-left">
+            <span class="text-xs sm:text-lg font-bold tracking-wider">數資聯合迎新 Lumos</span>
+            <span class="text-[9px] sm:text-xs text-gray-400">NEHS X HCHS X HGHS</span>
+        </div>
+
+        <!-- 電腦版選單 -->
+        <nav class="hidden md:flex items-center space-x-8 text-sm font-medium">
+            <a th:href="@{/}" class="text-gray-300 hover:text-white transition">首頁</a>
+            <a th:href="@{/activities}" class="text-gray-300 hover:text-white transition">活動介紹</a>
+            <a th:href="@{/map}" class="text-gray-300 hover:text-white transition">校園地圖</a>
+            <a th:href="@{/seniors}" class="text-gray-300 hover:text-white transition">學長姐</a>
+            <a th:href="@{/scoreboard}" class="text-gray-300 hover:text-white transition">記分板</a>
+            <a th:href="@{/games}" class="text-gray-300 hover:text-white transition">大地遊戲</a>
+        </nav>
+    </div>
+</header>
+
+<!-- 手機版底部導覽列 (App 風格分頁列，僅在手機顯示) -->
+<nav th:fragment="mobile-nav" class="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg z-50 flex justify-around items-center h-16 px-1">
+    <a th:href="@{/}" class="flex flex-col items-center justify-center w-full py-1 text-gray-600 hover:text-indigo-600 transition">
+        <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+        <span class="text-[10px] font-medium">首頁</span>
+    </a>
+    <a th:href="@{/activities}" class="flex flex-col items-center justify-center w-full py-1 text-gray-600 hover:text-indigo-600 transition">
+        <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+        <span class="text-[10px] font-medium">活動</span>
+    </a>
+    <a th:href="@{/map}" class="flex flex-col items-center justify-center w-full py-1 text-gray-600 hover:text-indigo-600 transition">
+        <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        <span class="text-[10px] font-medium">地圖</span>
+    </a>
+    <a th:href="@{/scoreboard}" class="flex flex-col items-center justify-center w-full py-1 text-gray-600 hover:text-indigo-600 transition">
+        <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+        <span class="text-[10px] font-medium">記分板</span>
+    </a>
+    <a th:href="@{/games}" class="flex flex-col items-center justify-center w-full py-1 text-gray-600 hover:text-indigo-600 transition">
+        <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        <span class="text-[10px] font-medium">遊戲</span>
+    </a>
+</nav>
+
+<!-- 頁尾片段 -->
+<footer th:fragment="footer" class="bg-white border-t border-gray-200 py-6 text-center text-gray-400 text-xs sm:text-sm mb-16 md:mb-0">
+    <p>&copy; 2026 Lumos 聯合迎新活動團隊</p>
+</footer>
+
+</body>
+</html>
