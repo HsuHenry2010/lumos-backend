@@ -20,5 +20,5 @@ public class Team {
     public void setName(String name) { this.name = name; }
 
     public Integer getScore() { return score; }
-    public void score(Integer score) { this.score = score; }
+    public void setScore(Integer score) { this.score = score; }
 }
