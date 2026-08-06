@@ -1,6 +1,8 @@
 package com.orientation.Lumos.model;
 
 import jakarta.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "items")
@@ -10,12 +12,11 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name; // 物品名稱（四種道具之一）
+    private String name;
 
-    // 多對一：一個物品可能被某個小隊攜帶（若為 null 則代表無人攜帶）
-    @ManyToOne
-    @JoinColumn(name = "team_id")
-    private Team team;
+    // 這裡的 mappedBy 必須對應到 Team.java 裡面的 "items" 屬性
+    @ManyToMany(mappedBy = "items")
+    private Set<Team> teams = new HashSet<>();
 
     // Getters and Setters
     public Long getId() { return id; }
@@ -24,6 +25,6 @@ public class Item {
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
 
-    public Team getTeam() { return team; }
-    public void setTeam(Team team) { this.team = team; }
+    public Set<Team> getTeams() { return teams; }
+    public void setTeams(Set<Team> teams) { this.teams = teams; }
 }

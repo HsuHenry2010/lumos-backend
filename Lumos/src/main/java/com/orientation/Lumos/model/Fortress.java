@@ -10,29 +10,62 @@ public class Fortress {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String code; // 堡壘代號，例如: A, B, C, D
-    private int defensePower; // 堡壘專屬屬性或防禦力
+    private String code;
 
-    // 多對一：一個堡壘可能被某個小隊佔領（若為 null 則代表無人佔領）
+    // 目前佔領的小隊
     @ManyToOne
     @JoinColumn(name = "team_id")
-    private Team team;
+    private Team occupyingTeam;
 
-    // 堡壘自己的獨立邏輯程式碼
-    public void performFortressLogic() {
-        // 這裡可以寫堡壘觸發的特殊事件、資源產出或防禦計算邏輯
+    // 堡壘固定販賣商品
+    @ManyToOne
+    @JoinColumn(name = "sell_item_id")
+    private Item sellItem;
+
+    // 販賣價格
+    private Integer sellPrice;
+
+    public Fortress() {
     }
 
     // Getters and Setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Long getId() {
+        return id;
+    }
 
-    public String getCode() { return code; }
-    public void setCode(String code) { this.code = code; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public int getDefensePower() { return defensePower; }
-    public void setDefensePower(int defensePower) { this.defensePower = defensePower; }
+    public String getCode() {
+        return code;
+    }
 
-    public Team getTeam() { return team; }
-    public void setTeam(Team team) { this.team = team; }
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public Team getOccupyingTeam() {
+        return occupyingTeam;
+    }
+
+    public void setOccupyingTeam(Team occupyingTeam) {
+        this.occupyingTeam = occupyingTeam;
+    }
+
+    public Item getSellItem() {
+        return sellItem;
+    }
+
+    public void setSellItem(Item sellItem) {
+        this.sellItem = sellItem;
+    }
+
+    public Integer getSellPrice() {
+        return sellPrice;
+    }
+
+    public void setSellPrice(Integer sellPrice) {
+        this.sellPrice = sellPrice;
+    }
 }

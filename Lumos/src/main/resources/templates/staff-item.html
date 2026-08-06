@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>道具攜帶管理 - 數資聯合迎新 Lumos</title>
+    <title>道具資產管理 - 數資聯合迎新 Lumos</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="[https://cdnjs.cloudflare.com/ajax/libs/instant.page/5.2.0/instantpage.js](https://cdnjs.cloudflare.com/ajax/libs/instant.page/5.2.0/instantpage.js)" type="module" crossorigin="anonymous"></script>
 </head>
 <body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
 
@@ -20,33 +21,54 @@
     </div>
 </header>
 
-<main class="flex-grow max-w-4xl mx-auto px-4 sm:px-6 py-12 w-full">
+<main class="flex-grow max-w-5xl mx-auto px-4 sm:px-6 py-12 w-full">
     <div class="text-center mb-8">
-        <h1 class="text-3xl font-extrabold text-gray-900 mb-2">道具攜帶狀態管理</h1>
-        <p class="text-gray-500 text-sm">設定各道具目前由哪一個小隊攜帶</p>
+        <h1 class="text-3xl font-extrabold text-gray-900 mb-2">小隊道具資產管理</h1>
+        <p class="text-gray-500 text-sm">設定各小隊目前擁有的道具（可累積多個）</p>
     </div>
 
     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
         <table class="w-full text-left border-collapse">
             <thead>
             <tr class="bg-gray-50 border-b border-gray-100 text-gray-600 text-sm">
-                <th class="py-4 px-6 font-semibold">道具名稱</th>
-                <th class="py-4 px-6 font-semibold">目前持有小隊</th>
-                <th class="py-4 px-6 font-semibold">變更攜帶狀態</th>
+                <th class="py-4 px-6 font-semibold" style="width: 20%;">小隊名稱</th>
+                <th class="py-4 px-6 font-semibold" style="width: 35%;">目前擁有的道具</th>
+                <th class="py-4 px-6 font-semibold" style="width: 45%;">操作 (給予 / 收回)</th>
             </tr>
             </thead>
             <tbody class="divide-y divide-gray-100 text-sm">
-            <tr th:each="item : ${items}">
-                <td class="py-4 px-6 font-bold text-gray-900" th:text="${item.name}">物品</td>
-                <td class="py-4 px-6 text-indigo-600 font-medium" th:text="${item.team != null ? item.team.name : '無人攜帶'}">無人攜帶</td>
+            <tr th:each="team : ${teams}">
+                <!-- 小隊名稱 -->
+                <td class="py-4 px-6 font-bold text-gray-900" th:text="${team.name}">第一小隊</td>
+
+                <!-- 目前擁有的道具標籤 -->
                 <td class="py-4 px-6">
-                    <form th:action="@{/staff/update-item}" method="post" class="flex items-center space-x-2">
-                        <input type="hidden" name="itemId" th:value="${item.id}">
-                        <select name="teamId" class="px-3 py-1.5 border border-gray-300 rounded-lg text-sm bg-white focus:ring-2 focus:ring-indigo-600">
-                            <option value="-1">-- 卸下道具 --</option>
-                            <option th:each="t : ${teams}" th:value="${t.id}" th:text="${t.name}" th:selected="${item.team != null and item.team.id == t.id}">小隊</option>
+                    <div class="flex flex-wrap gap-1.5">
+                        <span th:if="${team.items.empty}" class="text-gray-400 italic">無道具</span>
+                        <span th:each="item : ${team.items}"
+                              class="bg-indigo-50 text-indigo-700 border border-indigo-200 px-2.5 py-0.5 rounded-full text-xs font-semibold"
+                              th:text="${item.name}">金幣</span>
+                    </div>
+                </td>
+
+                <!-- 操作表單（給予道具與收回道具） -->
+                <td class="py-4 px-6 space-y-2">
+                    <!-- 給予道具 -->
+                    <form th:action="@{/staff/item/add}" method="post" class="flex items-center space-x-2">
+                        <input type="hidden" name="teamId" th:value="${team.id}">
+                        <select name="itemId" class="px-3 py-1.5 border border-gray-300 rounded-lg text-sm bg-white focus:ring-2 focus:ring-indigo-600">
+                            <option th:each="item : ${items}" th:value="${item.id}" th:text="${item.name}">道具</option>
                         </select>
-                        <button type="submit" class="px-4 py-1.5 bg-gray-800 hover:bg-gray-900 text-white font-medium rounded-lg transition">更新道具</button>
+                        <button type="submit" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg transition text-xs whitespace-nowrap">給予道具</button>
+                    </form>
+
+                    <!-- 收回道具 -->
+                    <form th:action="@{/staff/item/remove}" method="post" class="flex items-center space-x-2">
+                        <input type="hidden" name="teamId" th:value="${team.id}">
+                        <select name="itemId" class="px-3 py-1.5 border border-gray-300 rounded-lg text-sm bg-white focus:ring-2 focus:ring-indigo-600">
+                            <option th:each="item : ${team.items}" th:value="${item.id}" th:text="${item.name}">道具</option>
+                        </select>
+                        <button type="submit" class="px-3 py-1.5 bg-rose-600 hover:bg-rose-700 text-white font-medium rounded-lg transition text-xs whitespace-nowrap">收回道具</button>
                     </form>
                 </td>
             </tr>
@@ -59,4 +81,4 @@
     <p>&copy; 2026 Lumos 聯合迎新活動團隊</p>
 </footer>
 </body>
-</html>
+</html></html>
